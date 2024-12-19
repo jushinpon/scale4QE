@@ -1,0 +1,69 @@
+_audit_creation_date      'Oct. 9, 2024'
+_audit_creation_method    'Draft CIF file generated with Atomsk'
+ 
+_chemical_name_common             ?
+_chemical_melting_point           ?
+_chemical_formula_iupac           'Te16 Sn16'
+_chemical_formula_moiety          'Te16 Sn16'
+_chemical_formula_sum             'Te16 Sn16'
+_chemical_formula_weight          3940.960
+_chemical_compound_source         ?
+_chemical_absolute_configuration  ?
+_exptl_crystal_description        'EDIT-ENTRY'
+_diffrn_measurement_device_type   'EDIT-ENTRY'
+ 
+_space_group_IT_number            1
+_space_group_crystal_system       orthorhombic
+_symmetry_space_group_name_Hall   'P 1'
+_symmetry_space_group_name_H-M    'P 1'
+ 
+loop_
+_space_group_symop_operation_xyz
+'+x,+y,+z'
+ 
+_cell_length_a                    12.4639
+_cell_length_b                    6.2320
+_cell_length_c                    22.4639
+_cell_angle_alpha                 90.0000
+_cell_angle_beta                  90.0000
+_cell_angle_gamma                 90.0000
+_cell_volume                      1744.8859
+ 
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+Te1  Te  -0.270017 -0.270017 -0.149817
+Te2  Te  -0.020017 -0.270017 -0.011106
+Te3  Te  -0.020017  0.229983 -0.149817
+Te4  Te  -0.270017  0.229983 -0.011106
+Sn1  Sn  -0.270017 -0.270017 -0.011106
+Sn2  Sn  -0.020017 -0.270017 -0.149817
+Sn3  Sn  -0.270017  0.229983 -0.149817
+Sn4  Sn  -0.020017  0.229983 -0.011106
+Te5  Te  0.229983 -0.270017 -0.149817
+Te6  Te  0.479983 -0.270017 -0.011106
+Te7  Te  0.479983  0.229983 -0.149817
+Te8  Te  0.229983  0.229983 -0.011106
+Sn5  Sn  0.229983 -0.270017 -0.011106
+Sn6  Sn  0.479983 -0.270017 -0.149817
+Sn7  Sn  0.229983  0.229983 -0.149817
+Sn8  Sn  0.479983  0.229983 -0.011106
+Te9  Te  -0.270017 -0.270017  0.127604
+Te10  Te  -0.020017 -0.270017  0.266315
+Te11  Te  -0.020017  0.229983  0.127604
+Te12  Te  -0.270017  0.229983  0.266315
+Sn9  Sn  -0.270017 -0.270017  0.266315
+Sn10  Sn  -0.020017 -0.270017  0.127604
+Sn11  Sn  -0.270017  0.229983  0.127604
+Sn12  Sn  -0.020017  0.229983  0.266315
+Te13  Te  0.229983 -0.270017  0.127604
+Te14  Te  0.479983 -0.270017  0.266315
+Te15  Te  0.479983  0.229983  0.127604
+Te16  Te  0.229983  0.229983  0.266315
+Sn13  Sn  0.229983 -0.270017  0.266315
+Sn14  Sn  0.479983 -0.270017  0.127604
+Sn15  Sn  0.229983  0.229983  0.127604
+Sn16  Sn  0.479983  0.229983  0.266315

@@ -1,0 +1,6 @@
+log.lammps
+test*.pl
+output.data
+QE_trimmed/
+QEall_set/
+**/
