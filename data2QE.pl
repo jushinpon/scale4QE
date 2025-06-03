@@ -39,6 +39,12 @@ print ", you need to modify heredoc for setting the largest ecutrho and ecutwfc 
 print "\nMaybe you also need to modify cell_dofree setting for your QE cases. \n\n";
 ###parameters to set first
 my $currentPath = getcwd();
+
+my $store_path = "$currentPath/data2QE";#store path
+#####################
+`rm -rf $store_path`;
+`mkdir $store_path`;
+
 #my $dir = "$currentPath/data4md_relaxed";
 my $dir = "$currentPath/deformed_data";
 #my $dir = "$currentPath/ele4ratio";
@@ -47,6 +53,8 @@ my $dir = "$currentPath/deformed_data";
 my @datafile = `find $dir -type f -name "*.data"`;#|grep -v "/Te_"`;#find all data files
 map { s/^\s+|\s+$//g; } @datafile;
 die "No data files\n" unless(@datafile);
+#print join("\n",@datafile),"\n";
+#die;
 #collect all elements in data files
 my %myelement;#get all ements from all data files
 for (@datafile){
@@ -64,13 +72,13 @@ for (@datafile){
 my @myelement = keys  %myelement;
 map { s/^\s+|\s+$//g; } @myelement;
 die "No elements were found\n" unless (@myelement);
-my @temperature = ("10");#temperatures for QE_MD, only template for the following sed trim
+my @temperature = ("1000");#temperatures for QE_MD, only template for the following sed trim
 my @pressure = ("0");#pressure for vc-md, only template for the following sed trim
-my $calculation = "scf";#set temperature and pressure to be 0 0 for scf
+my $calculation = "vc-md";#set temperature and pressure to be 0 0 for scf
 
 
 my $stepsize = 50;#20 ~ 0.97 fs
-my $nstep = 50;#how many steps for md for vc-relax
+my $nstep = 10;#how many steps for md for vc-relax
 my $pseudo_dir = "/opt/QEpot/SSSP_efficiency_pseudos/";
 ####end of setting parameters
 ###get pot setting here!
@@ -274,7 +282,7 @@ for my $id (@datafile){
             output_file => "$QEin",
             pseudo_dir => $pseudo_dir,
             coord => $coords,
-            temp => 1.0,
+            temp => 1000.0,
             press => 0.0,
             ntyp => $current_typeNu,
             dt => $stepsize, ###timestep size,
@@ -292,7 +300,35 @@ for my $id (@datafile){
         #die "\$id:$id\n";
 }
 #all data files
-  
+
+#move all QE input files to data2QE folder ($store_path) with modifed folder and file names
+my @QE = `find $dir -type f -name "*.in"|grep -v ori.in`;#|grep -v "/Te_"`;#find all data files
+map { s/^\s+|\s+$//g; } @QE;
+die "No QE input files\n" unless(@QE);
+#print join("\n",@QE),"\n";
+
+for my $qein (@QE){
+    #print "$qein\n";
+    my $basename1 = `basename $qein`;
+    $basename1 =~ s/^\s+|\s+$//g;#remove space
+    $basename1 =~ s/\.in//g;#remove .in
+    chomp $basename1;
+    my $dirname = `dirname $qein`;
+    $dirname =~ s/^\s+|\s+$//g;#remove space
+    my $dirname1 = `dirname $dirname`;#keep the original dirname
+    my $basename2 = `basename $dirname1`;
+    chomp $basename2;
+    my $new_name = $basename2 . "_$basename1";#new name for the QE input file
+    #print "$basename\n";
+
+    my $new_path = "$store_path/$new_name";
+    `mkdir -p $new_path`;
+    `mv $qein $new_path/$new_name.in`;
+    #get the corresponding data file
+    `rm -rf $dirname`;#remove the original folder
+}
+
+
 #####here doc for QE input##########
 sub QEinput
 {
@@ -316,7 +352,7 @@ dt = $QE_hr->{dt}
 ntyp =  $QE_hr->{ntyp}
 occupations = 'smearing' !
 smearing = 'gaussian'
-degauss =   0.04
+degauss =   0.035
 ecutrho =   $rho_cutoff
 ecutwfc =   $cutoff 
 ibrav = 0
@@ -327,16 +363,16 @@ $QE_hr->{starting_magnetization}
 nspin = 2
 /
 &ELECTRONS
-conv_thr =   3.d-5
-electron_maxstep = 200
-mixing_beta =   0.1
+conv_thr =   2.d-5
+electron_maxstep = 300
+mixing_beta =   0.3
 mixing_mode = 'plain' !'local-TF'
 mixing_ndim = 8 !set 4 or 3 if OOM-killer exists (out of memory)
 diagonalization = 'david' !set cg if if OOM-killer exists (out of memory). other types can be used for scf problem.
-diago_david_ndim = 2 !If david is used for diagonalization. set 2 if OOM-killer appears.
+diago_david_ndim = 4 !If david is used for diagonalization. set 2 if OOM-killer appears.
 /
 &IONS
-ion_dynamics = "beeman"
+ion_dynamics = "verlet"
 ion_temperature = "rescaling"
 tempw = $QE_hr->{temp}
 /
@@ -360,4 +396,6 @@ my $file = $QE_hr->{output_file};
 open(FH, '>', $QE_hr->{output_file}) or die $!;
 print FH $QEinput;
 close(FH);
+#print "QE input file is written to $file\n";
+#die;
 }

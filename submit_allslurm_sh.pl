@@ -15,14 +15,14 @@ use Parallel::ForkManager;
 use List::Util qw/shuffle/;
 
 #y $filefold = "QE_trimmed4relax";#for vc-relax
-my $filefold = "deformed_data";#for vc-md
+my $filefold = "data2QE";#for vc-md
 
 my $currentPath = getcwd();# dir for all scripts
 
 my $forkNo = 1;#although we don't have so many cores, only for submitting jobs into slurm
 my $pm = Parallel::ForkManager->new("$forkNo");
 
-my @all_files = `find $currentPath/$filefold -maxdepth 4 -mindepth 4 -type f -name "*.sh" `;
+my @all_files = `find $currentPath/$filefold -type f -name "*.sh" `;
 #my @all_files = `find $currentPath/$filefold -maxdepth 2 -mindepth 2 -type f -name "*.sh" -exec readlink -f {} \\;|sort`;
 map { s/^\s+|\s+$//g; } @all_files;
 

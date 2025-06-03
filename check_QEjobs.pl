@@ -1,20 +1,14 @@
-=b
-Choose which dir you want to check the status of all qe jobs:
-my $source_folder = "$currentPath/QE_trimmed4relax";
-#my $source_folder = "$currentPath/QEall_set";
-
-=cut
-
 use strict;
 use warnings;
 use Cwd;
 #print "@running\n";
 my $whoami = `whoami`;#get username first
 $whoami =~ s/^\s+|\s+$//g;
-my $currentPath = getcwd();# dir for all scripts
-#my $source_folder = "$currentPath/QE_trimmed4relax";#for vc-md
-my $source_folder = "$currentPath/QEall_set";#for vc-relax
-my @all_QEin = `find $source_folder -type f -name "*.in"`;#keep element info`;
+my $currentPath = getcwd();
+my $filefold = "$currentPath/data2QE";
+
+#my $source_folder = "$currentPath/QEall_set";#all cases you want to work on
+my @all_QEin = `find $filefold -type f -name "*.in"`;#keep element info`;
 map { s/^\s+|\s+$//g; } @all_QEin;
 
 `rm -rf QEjobs_status`;
@@ -107,7 +101,7 @@ for my $f (@all_QEin){
             }
             else{
                 $deadNu++;
-                print $FH3 "$f\n";
+                print $FH3 "0/0: $f\n";
             }
         }
 

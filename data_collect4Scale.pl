@@ -23,14 +23,15 @@ my %dir4scale;
 #This script also works for non-orthogonal cell
 ## IMPORTANT!! You need to make sure no data file name is identical within the scaling folders (scale_2dab, scale_3d...)
 #$dir4scale{scale_1da} = ();
-$dir4scale{scale_2dab} = [
-    "/home/jsp/SnPbTe_alloys/make_surface_20240919/add_vacuum/" #better to do vc-md or ve-relax first
-];
+
+#$dir4scale{scale_2dab} = [
+#    #"/home/jsp/SnPbTe_alloys/make_surface_20240919/add_vacuum/" #better to do vc-md or ve-relax first
+#];
 
 #"/home/jsp/SnPbTe_alloys/QE_from_MatCld/cif2data/  only use materials project strutures
 #under QEall_set, you need to provide the data_files folder  
 $dir4scale{scale_3d} = [
-    "/home/jsp/SnPbTe_alloys/QE_from_MatCld/cif2data/",
+    #"/home/jsp/SnPbTe_alloys/QE_from_MatCld/cif2data/",
     "/home/jsp/SnPbTe_alloys/make_B2_related_data/QEall_set/"
 ];
 

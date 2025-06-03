@@ -14,26 +14,25 @@ use POSIX;
 use Parallel::ForkManager;
 use List::Util qw/shuffle/;
 
+my $currentPath = getcwd();
+my $filefold = "$currentPath/data2QE";
 #my $filefold = "QE_trimmed4relax";#for vc-relax
-my $filefold = "deformed_data";#for vc-md
 
 my $submitJobs = "no";
 my %sbatch_para = (
             nodes => 1,#how many nodes for your lmp job
             #nodes => 1,#how many nodes for your lmp job
-            threads => 1,,#modify it to 2, 4 if oom problem appears
+            threads => 4,#modify it to 2, 4 if oom problem appears
             #cpus_per_task => 1,
             #partition => "C16M32",#which partition you want to use
             partition => "All",#which partition you want to use
             runPath => "/opt/thermoPW-7-2/bin/pw.x",          
             );
 
-my $currentPath = getcwd();# dir for all scripts
-
 my $forkNo = 1;#although we don't have so many cores, only for submitting jobs into slurm
 my $pm = Parallel::ForkManager->new("$forkNo");
 
-my @all_files = `find $currentPath/$filefold -maxdepth 4 -mindepth 4 -type f -name "*.in" -exec readlink -f {} \\;|sort`;
+my @all_files = `find $filefold -type f -name "*.in" -exec readlink -f {} \\;|sort`;
 map { s/^\s+|\s+$//g; } @all_files;
 
 my $jobNo = 0;

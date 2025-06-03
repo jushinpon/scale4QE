@@ -21,8 +21,8 @@ chdir("$currentPath");
 `mkdir -p deformed_data`;
 
 #for cubic cell, a, b, and c are x, y, and z axises
-my $max = 0.2;
-my $min = -0.2;
+my $max = 0.25;
+my $min = -0.25;
 
 my %deform = (
     scale_1da => ["a",$min,0.35],#negative direction, positive direction
@@ -33,8 +33,8 @@ my %deform = (
 ); 
 my %sys_para = (
     shape_deform => "no",#yes if you want to change box shape
-    rand_range => 0.05,#range for random shift of each atom in unit of A
-    scale_No => 3,#total number of generated structures for a scale case (should be x2 for negative+positive)
+    rand_range => 0.0,#range for random shift of each atom in unit of A
+    scale_No => 10,#total number of generated structures for a scale case (should be x2 for negative+positive)
     #shape_No => 7,#total number of generated structures for a case changing the cell shape
 );
 
